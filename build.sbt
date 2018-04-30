@@ -14,13 +14,4 @@ libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1206-jdbc42"
 libraryDependencies += "org.playframework.anorm" %% "anorm" % "2.6.1"
 libraryDependencies += "joda-time" % "joda-time" % "2.9.9"
 libraryDependencies += "com.google.code.gson" % "gson" % "2.8.1"
-
-
-//fork in run := false
-//javaOptions in run += "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
-
-// Adds additional packages into Twirl
-//TwirlKeys.templateImports += "com.example.controllers._"
-
-// Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+libraryDependencies += "com.fatboyindustrial.gson-jodatime-serialisers" % "gson-jodatime-serialisers" % "1.0.0"

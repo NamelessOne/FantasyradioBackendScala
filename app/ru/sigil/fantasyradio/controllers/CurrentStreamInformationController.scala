@@ -1,20 +1,22 @@
 package ru.sigil.fantasyradio.controllers
 
-import com.google.gson.Gson
 import javax.inject.{Inject, Singleton}
 import play.api.mvc._
+import com.fatboyindustrial.gsonjodatime.Converters
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import ru.sigil.fantasyradio.models.{CurrentStreamInformation, CurrentStreamInformationRepo}
 
 @Singleton
 class CurrentStreamInformationController @Inject()(cc: ControllerComponents, currentStreamInformationRepo: CurrentStreamInformationRepo) extends AbstractController(cc) {
 
   def last() = Action { implicit request: Request[AnyContent] =>
-    Ok(currentStreamInformationRepo.last() + "")
+    val gson = Converters.registerDateTime(new GsonBuilder).create
+    Ok(gson.toJson(currentStreamInformationRepo.last()))
   }
 
   def add() = Action { request =>
-    val test = request.body.asJson.get.toString
-    val info = new Gson().fromJson(test, classOf[CurrentStreamInformation])
+    val info = new Gson().fromJson(request.body.asJson.get.toString, classOf[CurrentStreamInformation])
     currentStreamInformationRepo.save(info)
     Ok
   }
